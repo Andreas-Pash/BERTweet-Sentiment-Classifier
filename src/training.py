@@ -1,4 +1,6 @@
 import os 
+import sys
+
 import logging
 
 import numpy as np 
@@ -10,12 +12,13 @@ from sklearn.pipeline import Pipeline,FeatureUnion
 from sklearn.svm import LinearSVC
 from sklearn.metrics import precision_recall_fscore_support
 
-from preprocess_module import pre_process, light_clean, to_feature_vector
-from BERTweet import *
-from predict import *
+from src.preprocess_module import pre_process, light_clean, to_feature_vector
+from src.BERTweet import *
+from src.predict import *
 
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
+
 
 
 def train_classifier(data, architecture = 'base', verbose=False):

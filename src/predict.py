@@ -1,4 +1,4 @@
-from preprocess_module import pre_process, to_feature_vector
+from src.preprocess_module import pre_process, to_feature_vector
 
 
 def check_input_type(x):

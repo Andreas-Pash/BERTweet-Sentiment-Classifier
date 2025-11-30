@@ -1,0 +1,8 @@
+numpy >= 1.26
+torch >= 2.5
+scikit-learn >= 1.4
+transformers >= 4.51
+emoji >= 2.14
+textblob >= 0.19
+nltk >= 3.9
+matplotlib >= 3.8

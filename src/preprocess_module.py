@@ -1,9 +1,12 @@
+import os
+import sys
+import warnings
+
 import re
 import html
 import unicodedata
-import warnings
 from typing import List, Counter
-
+import logging
 import emoji
 from textblob import TextBlob
 
@@ -23,6 +26,9 @@ nltk.download("stopwords")
 nltk.download("punkt_tab")
 nltk.download("averaged_perceptron_tagger_eng")
 
+PROJECT_ROOT = os.path.abspath(os.path.join(os.getcwd(), ".."))
+if PROJECT_ROOT not in sys.path:
+    sys.path.append(PROJECT_ROOT)
 
 def _load_lexicon(path: str):
     words = set()
@@ -35,9 +41,14 @@ def _load_lexicon(path: str):
             words.add(line.lower())
     return words
 
+
 #############################
 # DICTIONARIES
 #############################
+LEXICON_DIR = os.path.join(PROJECT_ROOT, "data", "opinion_lexicon")
+POS_LEXICON = _load_lexicon(os.path.join(LEXICON_DIR, "positive-words.txt"))
+NEG_LEXICON = _load_lexicon(os.path.join(LEXICON_DIR, "negative-words.txt"))
+
 
 CONTRACTIONS = {
     "can't": "cannot",
@@ -94,15 +105,14 @@ NEGATION_WORDS = { 'barely', 'can’t', 'couldn’t', 'didn’t', 'doesn’t', '
             'hardly', 'isn’t', 'mustn’t', 'neither', 'never', 'no', 'nobody',
             'none', 'not', 'nothing', 'nowhere', 'scarcely', 'shouldn’t',
             'wasn’t', 'weren’t', 'won’t', 'wouldn’t' }
-
 CONTRASTIVE_CONNECTIVES = {
     "but", "however", "though", "although", "yet", "still", "whereas", "nonetheless", "nevertheless"
 }
-
 SENTENCE_BOUNDARIES = {".", "!", "?"}
 
-POS_LEXICON = _load_lexicon("data/opinion_lexicon/negative-words.txt")
-NEG_LEXICON = _load_lexicon("data/opinion_lexicon/negative-words.txt")
+
+
+
 
 tweet_tokenizer = TweetTokenizer(preserve_case=False, strip_handles=False, reduce_len=True)
 lemmatizer = WordNetLemmatizer()

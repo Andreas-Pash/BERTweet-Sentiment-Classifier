@@ -1,6 +1,6 @@
+import numpy as np
 from sklearn import metrics
 
-import numpy as np
 import matplotlib.pyplot as plt
 
 
